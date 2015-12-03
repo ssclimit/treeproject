@@ -24,28 +24,6 @@
 		<div class="clear-shadow"></div>
 		
 		<div id="content">
-			<div class="content-1">
-				<form action="" >
-				  <p>
-					<input class="field" name="usernamesignup" required="required" type="text" placeholder="Your Name">
-				  </p>
-				  <p>
-					<input class="field" name="emailsignup" required="required" type="email" placeholder="Email">
-				  </p>
-				  <p>
-					<input class="field" name="passwordsignup" required="required" type="password" placeholder="Password">
-				  </p>
-				  <p>
-					<input class="field" name="passwordsignup_confirm" required="required" type="password" placeholder="Confirm Password">
-				  </p>
-				  <p class="signin button">
-					<input type="checkbox" required="required"> I agree with terms and conditions 
-				  </p>
-				  <p>
-				  	<button id="loginbutton" style="height:40px;width:100%;font-size: x-large">SIGN IN</button>
-				  </p>
-				</form>
-			</div>
 			<div class="content-2">
 				<form id="loginaction" action="/user/login" method="post"  >
 				  <p>
@@ -56,13 +34,40 @@
 				  </p>
 				  
 				  <p>
-				  	<div id="loginbutton" style="height:40px;width:90%;font-size: x-large;opacity:1;position:relative;z-index:101">SIGN IN</div>
+				  	<div id="loginbutton" style="clear:both; opacity: 1;position: relative; float: left; background-color: #449D44; border-radius: 3px; width: 93%;
+				  	text-align: center; font-size:x-large; height: 20px; ">SIGN IN</div>
 				  </p>
-				  
-				 
 				</form>
-				  
 			</div>
+			
+			<div class="content-1">
+				<form id="signUpForm" >
+				  <p>
+					<input class="field" name="name" required="required" type="text" placeholder="Your Name">
+				  </p> 
+				  <p>
+					<input class="field" name="email" required="required" type="email" placeholder="Email">
+				  </p>
+				  <p>
+					<input id="passwordprogress" class="field" name="password" required="required" type="password" placeholder="Password">
+					<span class="progress" style="height: 4px; width:100%; position:relative;background-color:white;padding:0px;border-radius:2px;margin-top:2px">
+						<span id="passwordProgressBar" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 0%;height: 4px ;opacity:1;margin:0px;padding:0px;"></span>
+					</span>
+				  </p>
+				  	
+				  <p>
+					<input class="field" name="passwordCheck" required="required" type="password" placeholder="Confirm Password">
+				  </p>
+				  <p class="signin button">
+					<input type="checkbox" required="required"> I agree with terms and conditions 
+				  </p>
+				  <p>
+				  	<div id="signUpButton" style="clear:both; opacity: 1;position: relative; float: left; background-color: #449D44; border-radius: 3px; width: 93%;
+				  	text-align: center; font-size:x-large; height: 20px">SIGN UP</div>
+				  </p>
+				</form>
+			</div>
+			
 			
 			
 		</div>
@@ -76,11 +81,6 @@
 
 
 <script type="text/javascript">
-$("#loginbutton").click(function() {
-	
-
-	var str = $('#loginaction')
-	
 	
 	function getFormData($form){
 	    var unindexed_array = $form.serializeArray();
@@ -93,32 +93,51 @@ $("#loginbutton").click(function() {
 	    return indexed_array;
 	}
 	
-	var user = getFormData(str)
-	console.log(user)
-	console.log(JSON.stringify(user))
-
 	
+	
+$("#loginbutton").click(function() {
+	var str = $('#loginaction')
+	var user = getFormData(str)
 	$.ajax({
 		  type: 'POST',
 		  url: '/user/login',
 		  data: JSON.stringify(user),
 		  contentType : 'application/json; charset=utf-8',
 		  success : function(data){
-			  alert(data);
-				console.log(data);
-				if(true){
-						self.location="/index.html"
-						
-						
-						
+			  console.log(data)
+			  console.log(data.success);
+				if(data.success==='true'){
+						 self.location="/index.html" 
 				}else{
 						$('#exampleInputEmail1').val('');
 						$('#exampleInputPassword1').val('');
-						
-			
 				}
-				
-				
+		  },
+		  dataType: "json"
+		});
+	
+	
+})
+
+
+
+$("#signUpButton").click(function() {
+	var str = $('#signUpForm')
+	var user = getFormData(str)
+	$.ajax({
+		  type: 'POST',
+		  url: '/user/addUser',
+		  data: JSON.stringify(user),
+		  contentType : 'application/json; charset=utf-8',
+		  success : function(data){
+			  console.log(data)
+			  console.log(data.success);
+				if(true){
+					 self.location="/index.html" 
+				}else{
+					$('#exampleInputEmail1').val('');
+					$('#exampleInputPassword1').val('');
+				}
 		  },
 		  dataType: "json"
 		});
@@ -126,7 +145,59 @@ $("#loginbutton").click(function() {
 	
 })
 </script>
+<!-- <link rel="stylesheet" href="../resources/css/bootstrap.css"> -->
+<!-- <link rel="stylesheet" href="../resources/css/bootstrap.min.css"> -->
+<script type="text/javascript" src="../resources/js/common-passwords.js"></script>
+<script type="text/javascript">
+	$(function(){
+		
+		function isCommon(pass){
+			return ~window.commonPasswords.indexOf(pass);
+		}
 
+		function bruteMagnitude(pass) {
+	        var sets = [
+	            { regex: /\d/g, size: 10 },
+	            { regex: /[a-z]/g, size: 26 },
+	            { regex: /[A-Z]/g, size: 26 },
+	            { regex: /[!-/:-?\[-`{-}]/g, size: 24 },
+	        ];
+	        var passlen = pass.length,
+	            szSet = 0;
+
+	        sets.forEach(function(set) {
+	            if (set.regex.test(pass)) {
+	                szSet += set.size;
+	                pass = pass.replace(set.regex, '');
+	            }
+	        });
+	        // other (unicode) characters
+	        if (pass.length) szSet += 20;
+	        return passlen * Math.log(szSet) / Math.log(10);
+    	}
+
+		var strengths = ['red', '#fa00ff', '#6a00ff', '#0800ff', '#00a1ff', '#00ffa5','#00ff48']
+
+		function strength(pass) {
+	        if (isCommon(pass) || !pass.length) return 0;
+	        var str = bruteMagnitude(pass);
+	        return str < 7  ? 0 // very poor
+	             : str < 9  ? 1 // poor      - 10 million - 1 billion
+	             : str < 11 ? 2 // passing   - 1 billion - 100 billion
+	             : str < 13 ? 3 // fair      - 100 billion - 10 trillion
+	             : str < 15 ? 4 // good      - 10 trillion - 1 quadrillion
+	             : str < 17 ? 5 // very good - 1-100 quadrillion
+	             : 6;           // excellent - over 100 quadrillion
+  		 }
+
+		$('#passwordprogress').on('keyup keypress', function(){
+			var pstrength = strength($(this).val());
+			$('#passwordProgressBar').css('background-color',strengths[pstrength]).attr('aria-valuenow',100*(pstrength+1)/7).css('width',100*(pstrength+1)/7+"%")
+			
+		})
+
+	})
+</script>
 
 </body>
 </html>

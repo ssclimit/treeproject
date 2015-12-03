@@ -36,19 +36,18 @@ public class UserController {
 	@RequestMapping(value="login",method=RequestMethod.POST)
 //	public void login(@PathVariable String email, @PathVariable String password, Model model, HttpSession session) throws Exception {
 	@ResponseBody
-	public  User login(@RequestBody User user, Model model, HttpSession session) throws Exception {
+	public  void login(@RequestBody User user, Model model, HttpSession session) throws Exception {
 		System.out.println("/login");
 		User returnUser = userService.getUser2(user.getEmail());
 //		System.out.println(password);
 		if(user.getPassword().equals(returnUser.getPassword())){
 			session.setAttribute("user", returnUser);
 			System.out.println("success login");
-			model.addAttribute("success",true);
+			model.addAttribute("success","true");
 		}else{
-			model.addAttribute("success",false);
+			model.addAttribute("success","false");
 		}
 		
-		return returnUser;
 		
 				
 	}

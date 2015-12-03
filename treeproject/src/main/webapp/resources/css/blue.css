@@ -1,6 +1,5 @@
 @CHARSET "UTF-8";
-body
-{
+body{
 	font-family: "Trebuchet MS","Myriad Pro",Arial,sans-serif;
 	background-color:#333; 
 	margin:0;
@@ -96,7 +95,7 @@ body
     border-radius: 5px 5px 0 0;
 	margin-right:10px;
 	padding-left:8px;
-	padding-right:8px;s
+	padding-right:8px;
 }
 
 .tabs span:after {
