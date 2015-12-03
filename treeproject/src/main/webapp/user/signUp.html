@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet"href="../resources/css/blue.css">
+
+
+</head>
+
+
+<body cz-shortcut-listen="true">
+<div id="wrapper" >
+  <div id="container">
+	<section class="tabs">
+		<input id="tab-1" type="radio" name="radio-set" class="tab-selector-2" checked="checked">
+		<span for="tab-1" class="tab-label-1">Login</span>
+
+
+		<input id="tab-2" type="radio" name="radio-set" class="tab-selector-1" >
+		<span for="tab-2" class="tab-label-2">Signup</span>
+	
+		<div class="clear-shadow"></div>
+		
+		<div id="content">
+			<div class="content-1">
+				<form action="" autocomplete="on">
+				  <p>
+					<input class="field" name="usernamesignup" required="required" type="text" placeholder="Your Name">
+				  </p>
+				  <p>
+					<input class="field" name="emailsignup" required="required" type="email" placeholder="Email">
+				  </p>
+				  <p>
+					<input class="field" name="passwordsignup" required="required" type="password" placeholder="Password">
+				  </p>
+				  <p>
+					<input class="field" name="passwordsignup_confirm" required="required" type="password" placeholder="Confirm Password">
+				  </p>
+				  <p class="signin button">
+					<input type="checkbox" required="required"> I agree with terms and conditions 
+				  </p>
+				  <p>
+				  	<button id="loginbutton" style="height:40px;width:100%;font-size: x-large">SIGN IN</button>
+				  </p>
+				</form>
+			</div>
+			<div class="content-2">
+				<form action="" autocomplete="on">
+				  <p>
+					<input class="field" name="email" required="required" type="text" placeholder="Name or Email">
+				  </p>
+				  <p>
+					<input class="field" name="password" required="required" type="password" placeholder="Password">
+				  </p>
+				  <p class="keeplogin">
+					<input type="checkbox" name="loginkeeping" id="loginkeeping" value="loginkeeping"> Keep me logged in
+				  </p>
+				  <p>
+				  	<button id="loginbutton" style="height:40px;width:100%;font-size: x-large">SIGN IN</button>
+				  </p>
+				  
+				 
+				</form>
+				  
+			</div>
+			
+			
+		</div>
+	</section>
+  </div>
+</div>
+
+<script type="text/javascript">
+	$('#loginbutton').on('click',function(){
+		
+	})
+</script>
+
+
+</body>
+</html>
