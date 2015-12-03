@@ -2,6 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+
 <title>Insert title here</title>
 <link rel="stylesheet"href="../resources/css/blue.css">
 
@@ -24,7 +25,7 @@
 		
 		<div id="content">
 			<div class="content-1">
-				<form action="" autocomplete="on">
+				<form action="" >
 				  <p>
 					<input class="field" name="usernamesignup" required="required" type="text" placeholder="Your Name">
 				  </p>
@@ -46,18 +47,16 @@
 				</form>
 			</div>
 			<div class="content-2">
-				<form action="" autocomplete="on">
+				<form id="loginaction" action="/user/login" method="post"  >
 				  <p>
 					<input class="field" name="email" required="required" type="text" placeholder="Name or Email">
 				  </p>
 				  <p>
 					<input class="field" name="password" required="required" type="password" placeholder="Password">
 				  </p>
-				  <p class="keeplogin">
-					<input type="checkbox" name="loginkeeping" id="loginkeeping" value="loginkeeping"> Keep me logged in
-				  </p>
+				  
 				  <p>
-				  	<button id="loginbutton" style="height:40px;width:100%;font-size: x-large">SIGN IN</button>
+				  	<div id="loginbutton" style="height:40px;width:90%;font-size: x-large;opacity:1;position:relative;z-index:101">SIGN IN</div>
 				  </p>
 				  
 				 
@@ -70,11 +69,62 @@
 	</section>
   </div>
 </div>
+<script src="../resources/js/jquery.min.js"></script>
+<!-- <script type="text/javascript" src="../resources/js/facebookLogin.js"></script> -->
+
+
+
 
 <script type="text/javascript">
-	$('#loginbutton').on('click',function(){
-		
-	})
+$("#loginbutton").click(function() {
+	
+
+	var str = $('#loginaction')
+	
+	
+	function getFormData($form){
+	    var unindexed_array = $form.serializeArray();
+	    var indexed_array = {};
+
+	    $.map(unindexed_array, function(n, i){
+	        indexed_array[n["name"]] = n["value"];
+	    });
+
+	    return indexed_array;
+	}
+	
+	var user = getFormData(str)
+	console.log(user)
+	console.log(JSON.stringify(user))
+
+	
+	$.ajax({
+		  type: 'POST',
+		  url: '/user/login',
+		  data: JSON.stringify(user),
+		  contentType : 'application/json; charset=utf-8',
+		  success : function(data){
+			  alert(data);
+				console.log(data);
+				if(true){
+						self.location="/index.html"
+						
+						
+						
+				}else{
+						$('#exampleInputEmail1').val('');
+						$('#exampleInputPassword1').val('');
+						
+			
+				}
+				
+				
+		  },
+		  dataType: "json"
+		});
+	
+	
+})
 </script>
 
 

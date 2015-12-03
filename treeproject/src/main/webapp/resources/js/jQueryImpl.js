@@ -1,61 +1,14 @@
 $(function(){
-	$("#login").click(function() {
-		
-
-		var str = $('#loginForm')
-		
-		
-		function getFormData($form){
-		    var unindexed_array = $form.serializeArray();
-		    var indexed_array = {};
-
-		    $.map(unindexed_array, function(n, i){
-		        indexed_array[n["name"]] = n["value"];
-		    });
-
-		    return indexed_array;
-		}
-		
-		var user = getFormData(str)
-		console.log(user)
-		console.log(JSON.stringify(user))
-
-		
-		$.ajax({
-			  type: 'POST',
-			  url: '/user/login',
-			  data: JSON.stringify(user),
-			  contentType : 'application/json; charset=utf-8',
-			  success : function(data){
-				  alert(data);
-					console.log(data);
-					if(true){
-							$("#navbar").show("slide", {
-								direction : "up"
-							}, 1000);
-							$("#loginContainer").css("display","none");
-							$('#treeContainer').css('display','block');
-							$("#timeline").delay(1000).show("slide", {
-								direction : "right"
-							}, 500);
-							$("#base").delay(1000).show("fade", 500);
-							setTimeout("goImpl()", 2000);
-							
-					}else{
-							$('#exampleInputEmail1').val('');
-							$('#exampleInputPassword1').val('');
-							
-				
-					}
-			  },
-			  dataType: "json"
-			});
-		
-		
-	})
-		
-		
-
+	$("#navbar").show("slide", {
+		direction : "up"
+	}, 1000);
+	$("#loginContainer").css("display","none");
+	$('#treeContainer').css('display','block');
+	$("#timeline").delay(1000).show("slide", {
+		direction : "right"
+	}, 500);
+	$("#base").delay(1000).show("fade", 500);
+	setTimeout("goImpl()", 2000);
 })
 
 
